@@ -1,6 +1,6 @@
 # USTH Advanced Python 2025
 
-- Your student ID
-- Your name
-- Your class
+- 23BI14101
+- Duong Minh Duc
+- ICT Class 1
 
