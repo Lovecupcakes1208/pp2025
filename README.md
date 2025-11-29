@@ -1,6 +1,4 @@
 # USTH Advanced Python 2025
-
-- 23BI14101
-- Duong Minh Duc
-- ICT Class 1
-
+- My ID:23BI14101
+- My Name: Duong Minh Duc
+- My class: ICT Class 1

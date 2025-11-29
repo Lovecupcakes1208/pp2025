@@ -5,15 +5,15 @@ courses = []
 marks = {}
 
 def input_number_of_students():
-    """Input number of students in a class"""
-    num_students = int(input("Enter the number of students: "))
+    """Input num of students"""
+    num_students = int(input("Enter the num of students: "))
     if num_students >= 0:
         return num_students
     else:
-        print("Number of students can't be negative ")
+        print("Num of students can't be negative bruh ")
 
 def input_student_info(num_students):
-    """Input student information: id, name, DoB"""
+    """Input student info: id, name, DoB"""
     for i in range(num_students):
         student_id = input(f"Enter student {i+1} ID: ")
         student_name = input(f"Enter student {i+1} name: ")
@@ -21,26 +21,26 @@ def input_student_info(num_students):
         students.append((student_id, student_name, dob))
 
 def input_number_of_courses():
-    """Input number of courses"""
-    num_courses = int(input("Enter the number of courses: "))
+    """Input num of courses"""
+    num_courses = int(input("Enter the num of courses: "))
     return num_courses
 
 def input_course_info(num_courses):
-    """Input course information: id, name"""
+    """Input course info: id, name"""
     for i in range(num_courses):
         course_id = input(f"Enter course {i+1} ID: ")
         course_name = input(f"Enter course {i+1} name: ")
         courses.append((course_id, course_name))
 
 def select_course_and_input_marks():
-    """Select a course, input marks for student in this course"""
+    """Select a course, input marks for student"""
     if not courses:
         print("No courses available.")
         return
     print("Available courses:")
     for i, (course_id, course_name) in enumerate(courses):
         print(f"{i+1}. {course_name} ({course_id})")
-    course_choice = int(input("Select a course by entering its number: ")) - 1
+    course_choice = int(input("Select a course by entering num: ")) - 1
     if course_choice < 0 or course_choice >= len(courses):
         print("Invalid course selection.")
         return
@@ -86,11 +86,11 @@ def main():
     
     while True:
         print("\nStudent Mark Management System")
-        print("1. Input number of students")
-        print("2. Input student information")
-        print("3. Input number of courses")
-        print("4. Input course information")
-        print("5. Select a course and input marks for students in this course")
+        print("1. Input num of students")
+        print("2. Input student info")
+        print("3. Input num of courses")
+        print("4. Input course info")
+        print("5. Select a course and input marks for students")
         print("6. List courses")
         print("7. List students")
         print("8. Show student marks for a given course")
@@ -99,7 +99,7 @@ def main():
         try:
             choice = int(input("Enter your choice: "))
         except ValueError:
-            print("Invalid input! Please enter a valid number.")
+            print("Invalid input ~~ Please enter a valid number.")
             continue
         if choice == 1:
             num_students = input_number_of_students()
@@ -121,7 +121,8 @@ def main():
             print("Exiting the system.")
             sys.exit(0)
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid input ~~ Please enter a valid number.")
 
 if __name__ == "__main__":
     main()
+# My code didn't run because of some errors. I need help to fix it.😢
