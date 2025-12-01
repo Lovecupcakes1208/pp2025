@@ -6,11 +6,16 @@ marks = {}
 
 def input_number_of_students():
     """Input num of students"""
-    num_students = int(input("Enter the num of students: "))
-    if num_students >= 0:
-        return num_students
-    else:
-        print("Num of students can't be negative bruh ")
+    try:
+        num_students = int(input("Enter the num of students: "))
+        if num_students >= 0:
+            return num_students
+        else:
+            print("Num of students can't be negative bruh ")
+            return 0
+    except ValueError:
+        print("Invalid input ~~ Enter a whole num")
+        return 0
 
 def input_student_info(num_students):
     """Input student info: id, name, DoB"""
@@ -22,8 +27,12 @@ def input_student_info(num_students):
 
 def input_number_of_courses():
     """Input num of courses"""
-    num_courses = int(input("Enter the num of courses: "))
-    return num_courses
+    try:
+        num_courses = int(input("Enter the num of courses: "))
+        return num_courses
+    except ValueError:
+        print("Invalid input ~~ Please enter a whole num")
+        return 0
 
 def input_course_info(num_courses):
     """Input course info: id, name"""
@@ -40,16 +49,27 @@ def select_course_and_input_marks():
     print("Available courses:")
     for i, (course_id, course_name) in enumerate(courses):
         print(f"{i+1}. {course_name} ({course_id})")
-    course_choice = int(input("Select a course by entering num: ")) - 1
+        
+    try:
+        course_choice = int(input("Select a course by entering num: ")) - 1
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        return
+        
     if course_choice < 0 or course_choice >= len(courses):
         print("Invalid course selection.")
         return
-    selected_course_id, selected_course_name = courses[course]
+        
     selected_course_id, selected_course_name = courses[course_choice]
+    
     print(f"Input marks for students in {selected_course_name} ({selected_course_id}):")
     for student_id, _, _ in students:
-        mark = float(input(f"Enter mark for student ID {student_id}: "))
-        marks[(student_id, selected_course_id)] = mark
+        try:
+            mark = float(input(f"Enter mark for student ID {student_id}: "))
+            marks[(student_id, selected_course_id)] = mark
+        except ValueError:
+            print(f"Invalid mark entered for student {student_id}. Please enter a number.")
+
 
 def list_courses():
     """List courses"""
@@ -69,16 +89,38 @@ def list_students():
     for student_id, student_name, _ in students:
         print(f"{student_id}: {student_name}")
 
-def list_marks():
-    """List marks"""
-    if not marks:
-        print("No marks available.")
+def show_marks_for_selected_course(): 
+    """Show student marks for a given course"""
+    if not courses:
+        print("No courses available.")
         return
-    print("Marks:")
+    print("\nAvailable courses to view marks for:")
+    for i, (course_id, course_name) in enumerate(courses):
+        print(f"{i+1}. {course_name} ({course_id})")
+        
+    try:
+        course_choice = int(input("Select a course by entering number: ")) - 1
+    except ValueError:
+        print("Invalid input. Enter a number.")
+        return
+
+    if course_choice < 0 or course_choice >= len(courses):
+        print("Invalid course selection.")
+        return
+        
+    selected_course_id, selected_course_name = courses[course_choice]
+    
+    print(f"\n--- Marks for {selected_course_name} ({selected_course_id}) ---")
+    
+    found_marks = False
     for (student_id, course_id), mark in marks.items():
-        course_name = next((name for _, name in courses if _ == course_id), "Unknown")
-        student_name = next((name for _, name, _ in students if _ == student_id), "Unknown")
-        print(f"Student ID {student_id} ({student_name}) in {course_id} ({course_name}): {mark}")
+        if course_id == selected_course_id:
+            student_name = next((name for s_id, name, _ in students if s_id == student_id), "Unknown")
+            print(f"Student ID {student_id} ({student_name}): {mark}")
+            found_marks = True
+            
+    if not found_marks:
+        print("No marks have been recorded for this course yet.")
 
 def main():
     num_students = 0
@@ -101,14 +143,21 @@ def main():
         except ValueError:
             print("Invalid input ~~ Please enter a valid number.")
             continue
+            
         if choice == 1:
             num_students = input_number_of_students()
         elif choice == 2:
-            input_student_info(num_students)
+            if num_students == 0:
+                 print("Please input the number of students first (Option 1).")
+            else:
+                input_student_info(num_students)
         elif choice == 3:
             num_courses = input_number_of_courses()
         elif choice == 4:
-            input_course_info(num_courses)
+            if num_courses == 0:
+                 print("Please input the number of courses first (Option 3).")
+            else:
+                input_course_info(num_courses)
         elif choice == 5:
             select_course_and_input_marks()
         elif choice == 6:
@@ -116,7 +165,7 @@ def main():
         elif choice == 7:
             list_students()
         elif choice == 8:
-            list_marks()
+            show_marks_for_selected_course()
         elif choice == 9:
             print("Exiting the system.")
             sys.exit(0)
@@ -125,6 +174,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-# My code didn't run because of some errors. I need help to fix it.😢
-# 23BI14101
